@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Calculator</title>
+</head>
+<style>
+    body {
+        background-color: black;
+        color: gold;
+    }
+
+    h1 {
+        font-size: 70px;
+        text-align: center;
+    }
+    .container{
+        text-align: center;
+        text-decoration: solid;
+        font-size: 30px;
+        
+
+    }
+    .in{
+        margin-left: 10px;
+    }
+</style>
+
+
+
+<body>
+
+    <h1>Carbon Footprint Calculator</h1>
+    <div class="container">
+        <p>
+            <label for="mileage">Car Mileage (in kilometers):</label>
+            <input type="number" id="mileage" class="in" placeholder="Enter mileage">
+        </p>
+        <p>
+            <label for="electricity">Electricity Usage (in kWh):</label>
+            <input type="number" id="electricity" class="in" placeholder="Enter electricity usage">
+        </p>
+        <p>
+            <label for="waste">Monthly Waste (in kilograms):</label>
+            <input type="number" id="waste" class="in" placeholder="Enter monthly waste">
+        </p>
+        <p>
+            <button onclick="calculateFootprint()" >Calculate</button>
+        </p>
+        <h2>Results</h2>
+        <p id="result">Your carbon footprint is: <span id="carbonFootprint">0</span></p>
+    </div>
+    <script>
+        function calculateFootprint() {
+            const mileage = parseFloat(document.getElementById('mileage').value) || 0;
+            const electricity = parseFloat(document.getElementById('electricity').value) || 0;
+            const waste = parseFloat(document.getElementById('waste').value) || 0;
+
+            const mileageCO2 = 0.18; // Example: 0.18 kg of CO2 per kilometer
+            const electricityCO2 = 0.9; // Example: 0.9 kg of CO2 per kWh
+            const wasteCO2 = 1.5; // Example: 1.5 kg of CO2 per kg of waste
+
+            // Calculate total CO2 emissions
+            const totalCO2 = (mileage * mileageCO2) + (electricity * electricityCO2) + (waste * wasteCO2);
+
+            // Calculate CO2 per kilometer
+            const co2PerKilometer = totalCO2 / mileage;
+
+            // Format the CO2 per kilometer using the Indian numbering system and display in kg
+            const formattedCO2PerKilometer = co2PerKilometer.toLocaleString('en-IN', { style: 'decimal' });
+
+            document.getElementById('carbonFootprint').innerText = `Carbon footprint per kilometer: ${formattedCO2PerKilometer} kg of CO2`;
+        }
+
+
+    </script>
+
+</body>
+
+</html>
